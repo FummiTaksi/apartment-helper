@@ -3,6 +3,8 @@
 
 ## How to run locally
 
+Copy values from `apartment-helper-app/.env.dist` to `apartment-helper/app/.env` . Then run
+
 ````
 docker-compose up
 cd apartment-helper-app
