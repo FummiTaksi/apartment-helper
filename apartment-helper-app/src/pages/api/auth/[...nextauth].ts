@@ -15,6 +15,7 @@ const isCorrectCredentials = (credentials: Credentials): boolean => {
 };
 
 const options = {
+  secret: process.env.SECRET,
   providers: [
     Credentials({
       name: "Credentials",
