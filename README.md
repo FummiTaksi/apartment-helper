@@ -10,6 +10,10 @@ yarn dev
 ````
 
 
+## Deployment
+
+Continuous deployment from `main` branch to [here](https://apartment-helper.vercel.app/)
+
 ## Database
 
 ### Connecting to local database
