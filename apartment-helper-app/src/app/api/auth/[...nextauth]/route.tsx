@@ -14,7 +14,7 @@ const isCorrectCredentials = (credentials: Credentials): boolean => {
   );
 };
 
-const options = {
+export const options = {
   secret: process.env.SECRET,
   providers: [
     Credentials({
@@ -44,8 +44,6 @@ const options = {
   ],
 };
 
-const nextAuth = (req: NextApiRequest, res: NextApiResponse) => {
-  return NextAuth(req, res, options);
-};
+const handler = NextAuth(options);
 
-export default nextAuth;
+export { handler as GET, handler as POST };
