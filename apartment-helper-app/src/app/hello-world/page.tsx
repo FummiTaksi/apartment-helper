@@ -1,3 +1,4 @@
+import React from "react";
 import { PrismaClient } from "@/generated/prisma-client";
 import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/route";
