@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "yarn install && prisma migrate deploy && prisma generate && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@prisma/client": "4.15.0",
