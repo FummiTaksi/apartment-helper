@@ -1,21 +1,21 @@
-"use client";
-import React from "react";
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+'use client'
+import React from 'react'
+import { useState } from 'react'
+import { signIn } from 'next-auth/react'
 
 export default function LoginPage() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await signIn("credentials", {
+    e.preventDefault()
+    await signIn('credentials', {
       username,
       password,
       redirect: true,
-      callbackUrl: "/hello-world",
-    });
-  };
+      callbackUrl: '/hello-world',
+    })
+  }
 
   return (
     <form onSubmit={handleLogin}>
@@ -33,5 +33,5 @@ export default function LoginPage() {
       />
       <button type="submit">Login</button>
     </form>
-  );
+  )
 }
