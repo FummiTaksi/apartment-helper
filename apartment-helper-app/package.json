@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "types:check": "tsc --noEmit",
+    "test:e2e": "playwright test",
+    "playwright:install": "playwright install"
   },
   "dependencies": {
     "@prisma/client": "4.15.0",
@@ -25,6 +28,7 @@
     "typescript": "5.1.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.37.1",
     "eslint-config-prettier": "^9.0.0",
     "prettier": "^3.0.1"
   }

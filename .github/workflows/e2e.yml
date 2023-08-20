@@ -1,0 +1,27 @@
+name: CI
+
+on: [pull_request]
+
+jobs:
+  lint:
+    runs-on: [ubuntu-latest]
+    name: e2e test
+
+    strategy:
+      matrix:
+        node_version: [20.5.1]
+  
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node_version }}
+      - run: docker-compose up -d    
+      - run: cp apartment-helper-app/.env.dist apartment-helper-app/.env
+      - run: cd apartment-helper-app && yarn install --frozen-lockfile 
+      - run: cd apartment-helper-app && yarn playwright:install
+      - run: cd apartment-helper-app && yarn prisma migrate dev
+      - run: cd apartment-helper-app && yarn build
+      - run: cd apartment-helper-app && yarn start &
+      - run: cd apartment-helper-app && yarn test:e2e
+      
