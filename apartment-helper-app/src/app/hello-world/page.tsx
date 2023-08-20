@@ -1,7 +1,7 @@
 import React from 'react'
 import { PrismaClient } from '@/generated/prisma-client'
 import { getServerSession } from 'next-auth'
-import { options } from '../api/auth/[...nextauth]/route'
+import { authOptions } from '../api/auth/[...nextauth]/authOptions'
 
 const fetchHelloWorldContent = async (): Promise<string> => {
   const prisma = new PrismaClient()
@@ -14,7 +14,7 @@ const fetchHelloWorldContent = async (): Promise<string> => {
 
 export default async function HelloWorld() {
   const content = await fetchHelloWorldContent()
-  const session = await getServerSession(options)
+  const session = await getServerSession(authOptions)
   if (session === null) {
     return null
   }
