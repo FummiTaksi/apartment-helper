@@ -10,7 +10,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "types:check": "tsc --noEmit",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "playwright:install": "playwright install"
   },
   "dependencies": {
     "@prisma/client": "4.15.0",
