@@ -15,3 +15,10 @@ model Message {
   id      Int  @id @default(autoincrement())
   content String
 }
+
+model Apartment {
+  id          Int  @id @default(autoincrement())
+  url         String
+  title       String
+  description String?
+}

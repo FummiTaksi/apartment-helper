@@ -86,6 +86,13 @@ Prisma.NullTypes = {
  * Enums
  */
 
+exports.Prisma.ApartmentScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  title: 'title',
+  description: 'description'
+};
+
 exports.Prisma.MessageScalarFieldEnum = {
   id: 'id',
   content: 'content'
@@ -110,7 +117,8 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 
 exports.Prisma.ModelName = {
-  Message: 'Message'
+  Message: 'Message',
+  Apartment: 'Apartment'
 };
 
 /**
