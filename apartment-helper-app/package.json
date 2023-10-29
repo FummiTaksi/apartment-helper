@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.37.1",
+    "@prisma/nextjs-monorepo-workaround-plugin": "^5.5.2",
     "eslint-config-prettier": "^9.0.0",
     "prettier": "^3.0.1"
   }
