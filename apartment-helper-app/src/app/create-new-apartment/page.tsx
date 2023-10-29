@@ -2,18 +2,28 @@
 
 import React, { useState, ChangeEvent, FormEvent } from 'react'
 import { Apartment } from '@/generated/prisma-client'
-import axios from 'axios'
+import { createApartment } from './_action'
+import { useSession } from 'next-auth/react'
 
-type FormApartment = Omit<Apartment, 'id'> & { description: string }
+export type FormApartment = Omit<Apartment, 'id'> & { description: string }
 
 export default function HelloWorld() {
+  const { data: session } = useSession()
+
   const [apartment, setApartment] = useState<FormApartment>({
     url: '',
     title: '',
     description: '',
   })
 
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
   const [validationErrors, setValidationErrors] = useState<string[]>([])
+
+  if (session === null) {
+    return null
+  }
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -25,24 +35,41 @@ export default function HelloWorld() {
     })
   }
 
+  const getValidationErrors = (): string[] => {
+    const newValidationErrors = []
+
+    if (!apartment.title.trim()) {
+      newValidationErrors.push('Title is missing')
+    }
+    if (!apartment.url.trim()) {
+      newValidationErrors.push('Url is missing')
+    }
+
+    return newValidationErrors
+  }
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    try {
+      e.preventDefault()
 
-    if (!apartment.title.trim()) {
-      setValidationErrors([...validationErrors, 'Title is missing!'])
-    }
-    if (!apartment.title.trim()) {
-      setValidationErrors([...validationErrors, 'Url is missing!'])
-    }
+      const newValidationErrors = getValidationErrors()
 
-    const apartmentIsValid = validationErrors.length === 0
-    if (apartmentIsValid) {
-      const response = await axios.post('/api/apartment', {
-        ...apartment,
-        description:
-          apartment.description.length === 0 ? null : apartment.description,
-      })
-      console.log('response', response)
+      setValidationErrors(newValidationErrors)
+
+      const apartmentIsValid = newValidationErrors.length === 0
+      if (apartmentIsValid) {
+        const createdApartment = await createApartment({
+          ...apartment,
+          description:
+            apartment.description.length === 0 ? '' : apartment.description,
+        })
+
+        if (createdApartment) {
+          setSuccessMessage('Apartment created successfully')
+        }
+      }
+    } catch (error) {
+      setErrorMessage('Something went wrong when creating apartment.')
     }
   }
 
@@ -56,6 +83,7 @@ export default function HelloWorld() {
             type="text"
             id="url"
             name="url"
+            data-testid="apartment-url"
             value={apartment.url}
             onChange={handleInputChange}
           />
@@ -66,6 +94,7 @@ export default function HelloWorld() {
             type="text"
             id="title"
             name="title"
+            data-testid="apartment-title"
             value={apartment.title}
             onChange={handleInputChange}
           />
@@ -82,12 +111,20 @@ export default function HelloWorld() {
           <textarea
             id="description"
             name="description"
+            data-testid="apartment-description"
             value={apartment.description}
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit">Add Apartment</button>
+        <button data-testid="submit-apartment" type="submit">
+          Add Apartment
+        </button>
       </form>
+
+      {successMessage && (
+        <b data-testid={'create-apartment-success'}>{successMessage}</b>
+      )}
+      {errorMessage && <b>{errorMessage}</b>}
     </div>
   )
 }
