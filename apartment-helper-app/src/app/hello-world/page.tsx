@@ -2,6 +2,7 @@ import React from 'react'
 import { PrismaClient } from '@/generated/prisma-client'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]/authOptions'
+import Link from 'next/link'
 
 const fetchHelloWorldContent = async (): Promise<string> => {
   const prisma = new PrismaClient()
@@ -18,5 +19,15 @@ export default async function HelloWorld() {
   if (session === null) {
     return null
   }
-  return <h1>{content}</h1>
+  return (
+    <div>
+      <Link
+        data-testid="create-new-apartment-link"
+        href="/create-new-apartment"
+      >
+        Create new apartment
+      </Link>
+      <h1>{content}</h1>
+    </div>
+  )
 }

@@ -21,6 +21,17 @@ export type Message = {
   content: string
 }
 
+/**
+ * Model Apartment
+ * 
+ */
+export type Apartment = {
+  id: number
+  url: string
+  title: string
+  description: string | null
+}
+
 
 /**
  * ##  Prisma Client ʲˢ
@@ -148,6 +159,16 @@ export class PrismaClient<
     * ```
     */
   get message(): Prisma.MessageDelegate<GlobalReject>;
+
+  /**
+   * `prisma.apartment`: Exposes CRUD operations for the **Apartment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Apartments
+    * const apartments = await prisma.apartment.findMany()
+    * ```
+    */
+  get apartment(): Prisma.ApartmentDelegate<GlobalReject>;
 }
 
 export namespace Prisma {
@@ -617,7 +638,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    Message: 'Message'
+    Message: 'Message',
+    Apartment: 'Apartment'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1676,8 +1698,926 @@ export namespace Prisma {
 
 
   /**
+   * Model Apartment
+   */
+
+
+  export type AggregateApartment = {
+    _count: ApartmentCountAggregateOutputType | null
+    _avg: ApartmentAvgAggregateOutputType | null
+    _sum: ApartmentSumAggregateOutputType | null
+    _min: ApartmentMinAggregateOutputType | null
+    _max: ApartmentMaxAggregateOutputType | null
+  }
+
+  export type ApartmentAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ApartmentSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ApartmentMinAggregateOutputType = {
+    id: number | null
+    url: string | null
+    title: string | null
+    description: string | null
+  }
+
+  export type ApartmentMaxAggregateOutputType = {
+    id: number | null
+    url: string | null
+    title: string | null
+    description: string | null
+  }
+
+  export type ApartmentCountAggregateOutputType = {
+    id: number
+    url: number
+    title: number
+    description: number
+    _all: number
+  }
+
+
+  export type ApartmentAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type ApartmentSumAggregateInputType = {
+    id?: true
+  }
+
+  export type ApartmentMinAggregateInputType = {
+    id?: true
+    url?: true
+    title?: true
+    description?: true
+  }
+
+  export type ApartmentMaxAggregateInputType = {
+    id?: true
+    url?: true
+    title?: true
+    description?: true
+  }
+
+  export type ApartmentCountAggregateInputType = {
+    id?: true
+    url?: true
+    title?: true
+    description?: true
+    _all?: true
+  }
+
+  export type ApartmentAggregateArgs = {
+    /**
+     * Filter which Apartment to aggregate.
+     */
+    where?: ApartmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Apartments to fetch.
+     */
+    orderBy?: Enumerable<ApartmentOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ApartmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Apartments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Apartments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Apartments
+    **/
+    _count?: true | ApartmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ApartmentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ApartmentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ApartmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ApartmentMaxAggregateInputType
+  }
+
+  export type GetApartmentAggregateType<T extends ApartmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateApartment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateApartment[P]>
+      : GetScalarType<T[P], AggregateApartment[P]>
+  }
+
+
+
+
+  export type ApartmentGroupByArgs = {
+    where?: ApartmentWhereInput
+    orderBy?: Enumerable<ApartmentOrderByWithAggregationInput>
+    by: ApartmentScalarFieldEnum[]
+    having?: ApartmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ApartmentCountAggregateInputType | true
+    _avg?: ApartmentAvgAggregateInputType
+    _sum?: ApartmentSumAggregateInputType
+    _min?: ApartmentMinAggregateInputType
+    _max?: ApartmentMaxAggregateInputType
+  }
+
+
+  export type ApartmentGroupByOutputType = {
+    id: number
+    url: string
+    title: string
+    description: string | null
+    _count: ApartmentCountAggregateOutputType | null
+    _avg: ApartmentAvgAggregateOutputType | null
+    _sum: ApartmentSumAggregateOutputType | null
+    _min: ApartmentMinAggregateOutputType | null
+    _max: ApartmentMaxAggregateOutputType | null
+  }
+
+  type GetApartmentGroupByPayload<T extends ApartmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickArray<ApartmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ApartmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ApartmentGroupByOutputType[P]>
+            : GetScalarType<T[P], ApartmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ApartmentSelect = {
+    id?: boolean
+    url?: boolean
+    title?: boolean
+    description?: boolean
+  }
+
+
+  export type ApartmentGetPayload<S extends boolean | null | undefined | ApartmentArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? Apartment :
+    S extends undefined ? never :
+    S extends { include: any } & (ApartmentArgs | ApartmentFindManyArgs)
+    ? Apartment 
+    : S extends { select: any } & (ApartmentArgs | ApartmentFindManyArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof Apartment ? Apartment[P] : never
+  } 
+      : Apartment
+
+
+  type ApartmentCountArgs = 
+    Omit<ApartmentFindManyArgs, 'select' | 'include'> & {
+      select?: ApartmentCountAggregateInputType | true
+    }
+
+  export interface ApartmentDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
+
+    /**
+     * Find zero or one Apartment that matches the filter.
+     * @param {ApartmentFindUniqueArgs} args - Arguments to find a Apartment
+     * @example
+     * // Get one Apartment
+     * const apartment = await prisma.apartment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ApartmentFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, ApartmentFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Apartment'> extends True ? Prisma__ApartmentClient<ApartmentGetPayload<T>> : Prisma__ApartmentClient<ApartmentGetPayload<T> | null, null>
+
+    /**
+     * Find one Apartment that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ApartmentFindUniqueOrThrowArgs} args - Arguments to find a Apartment
+     * @example
+     * // Get one Apartment
+     * const apartment = await prisma.apartment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ApartmentFindUniqueOrThrowArgs>(
+      args?: SelectSubset<T, ApartmentFindUniqueOrThrowArgs>
+    ): Prisma__ApartmentClient<ApartmentGetPayload<T>>
+
+    /**
+     * Find the first Apartment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApartmentFindFirstArgs} args - Arguments to find a Apartment
+     * @example
+     * // Get one Apartment
+     * const apartment = await prisma.apartment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ApartmentFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, ApartmentFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Apartment'> extends True ? Prisma__ApartmentClient<ApartmentGetPayload<T>> : Prisma__ApartmentClient<ApartmentGetPayload<T> | null, null>
+
+    /**
+     * Find the first Apartment that matches the filter or
+     * throw `NotFoundError` if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApartmentFindFirstOrThrowArgs} args - Arguments to find a Apartment
+     * @example
+     * // Get one Apartment
+     * const apartment = await prisma.apartment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ApartmentFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, ApartmentFindFirstOrThrowArgs>
+    ): Prisma__ApartmentClient<ApartmentGetPayload<T>>
+
+    /**
+     * Find zero or more Apartments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApartmentFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Apartments
+     * const apartments = await prisma.apartment.findMany()
+     * 
+     * // Get first 10 Apartments
+     * const apartments = await prisma.apartment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const apartmentWithIdOnly = await prisma.apartment.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ApartmentFindManyArgs>(
+      args?: SelectSubset<T, ApartmentFindManyArgs>
+    ): Prisma.PrismaPromise<Array<ApartmentGetPayload<T>>>
+
+    /**
+     * Create a Apartment.
+     * @param {ApartmentCreateArgs} args - Arguments to create a Apartment.
+     * @example
+     * // Create one Apartment
+     * const Apartment = await prisma.apartment.create({
+     *   data: {
+     *     // ... data to create a Apartment
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ApartmentCreateArgs>(
+      args: SelectSubset<T, ApartmentCreateArgs>
+    ): Prisma__ApartmentClient<ApartmentGetPayload<T>>
+
+    /**
+     * Create many Apartments.
+     *     @param {ApartmentCreateManyArgs} args - Arguments to create many Apartments.
+     *     @example
+     *     // Create many Apartments
+     *     const apartment = await prisma.apartment.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ApartmentCreateManyArgs>(
+      args?: SelectSubset<T, ApartmentCreateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Apartment.
+     * @param {ApartmentDeleteArgs} args - Arguments to delete one Apartment.
+     * @example
+     * // Delete one Apartment
+     * const Apartment = await prisma.apartment.delete({
+     *   where: {
+     *     // ... filter to delete one Apartment
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ApartmentDeleteArgs>(
+      args: SelectSubset<T, ApartmentDeleteArgs>
+    ): Prisma__ApartmentClient<ApartmentGetPayload<T>>
+
+    /**
+     * Update one Apartment.
+     * @param {ApartmentUpdateArgs} args - Arguments to update one Apartment.
+     * @example
+     * // Update one Apartment
+     * const apartment = await prisma.apartment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ApartmentUpdateArgs>(
+      args: SelectSubset<T, ApartmentUpdateArgs>
+    ): Prisma__ApartmentClient<ApartmentGetPayload<T>>
+
+    /**
+     * Delete zero or more Apartments.
+     * @param {ApartmentDeleteManyArgs} args - Arguments to filter Apartments to delete.
+     * @example
+     * // Delete a few Apartments
+     * const { count } = await prisma.apartment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ApartmentDeleteManyArgs>(
+      args?: SelectSubset<T, ApartmentDeleteManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Apartments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApartmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Apartments
+     * const apartment = await prisma.apartment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ApartmentUpdateManyArgs>(
+      args: SelectSubset<T, ApartmentUpdateManyArgs>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Apartment.
+     * @param {ApartmentUpsertArgs} args - Arguments to update or create a Apartment.
+     * @example
+     * // Update or create a Apartment
+     * const apartment = await prisma.apartment.upsert({
+     *   create: {
+     *     // ... data to create a Apartment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Apartment we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ApartmentUpsertArgs>(
+      args: SelectSubset<T, ApartmentUpsertArgs>
+    ): Prisma__ApartmentClient<ApartmentGetPayload<T>>
+
+    /**
+     * Count the number of Apartments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApartmentCountArgs} args - Arguments to filter Apartments to count.
+     * @example
+     * // Count the number of Apartments
+     * const count = await prisma.apartment.count({
+     *   where: {
+     *     // ... the filter for the Apartments we want to count
+     *   }
+     * })
+    **/
+    count<T extends ApartmentCountArgs>(
+      args?: Subset<T, ApartmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ApartmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Apartment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApartmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ApartmentAggregateArgs>(args: Subset<T, ApartmentAggregateArgs>): Prisma.PrismaPromise<GetApartmentAggregateType<T>>
+
+    /**
+     * Group by Apartment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApartmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ApartmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ApartmentGroupByArgs['orderBy'] }
+        : { orderBy?: ApartmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ApartmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetApartmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Apartment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__ApartmentClient<T, Null = never> implements Prisma.PrismaPromise<T> {
+    private readonly _dmmf;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+
+
+  // Custom InputTypes
+
+  /**
+   * Apartment base type for findUnique actions
+   */
+  export type ApartmentFindUniqueArgsBase = {
+    /**
+     * Select specific fields to fetch from the Apartment
+     */
+    select?: ApartmentSelect | null
+    /**
+     * Filter, which Apartment to fetch.
+     */
+    where: ApartmentWhereUniqueInput
+  }
+
+  /**
+   * Apartment findUnique
+   */
+  export interface ApartmentFindUniqueArgs extends ApartmentFindUniqueArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Apartment findUniqueOrThrow
+   */
+  export type ApartmentFindUniqueOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Apartment
+     */
+    select?: ApartmentSelect | null
+    /**
+     * Filter, which Apartment to fetch.
+     */
+    where: ApartmentWhereUniqueInput
+  }
+
+
+  /**
+   * Apartment base type for findFirst actions
+   */
+  export type ApartmentFindFirstArgsBase = {
+    /**
+     * Select specific fields to fetch from the Apartment
+     */
+    select?: ApartmentSelect | null
+    /**
+     * Filter, which Apartment to fetch.
+     */
+    where?: ApartmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Apartments to fetch.
+     */
+    orderBy?: Enumerable<ApartmentOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Apartments.
+     */
+    cursor?: ApartmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Apartments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Apartments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Apartments.
+     */
+    distinct?: Enumerable<ApartmentScalarFieldEnum>
+  }
+
+  /**
+   * Apartment findFirst
+   */
+  export interface ApartmentFindFirstArgs extends ApartmentFindFirstArgsBase {
+   /**
+    * Throw an Error if query returns no results
+    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
+    */
+    rejectOnNotFound?: RejectOnNotFound
+  }
+      
+
+  /**
+   * Apartment findFirstOrThrow
+   */
+  export type ApartmentFindFirstOrThrowArgs = {
+    /**
+     * Select specific fields to fetch from the Apartment
+     */
+    select?: ApartmentSelect | null
+    /**
+     * Filter, which Apartment to fetch.
+     */
+    where?: ApartmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Apartments to fetch.
+     */
+    orderBy?: Enumerable<ApartmentOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Apartments.
+     */
+    cursor?: ApartmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Apartments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Apartments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Apartments.
+     */
+    distinct?: Enumerable<ApartmentScalarFieldEnum>
+  }
+
+
+  /**
+   * Apartment findMany
+   */
+  export type ApartmentFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the Apartment
+     */
+    select?: ApartmentSelect | null
+    /**
+     * Filter, which Apartments to fetch.
+     */
+    where?: ApartmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Apartments to fetch.
+     */
+    orderBy?: Enumerable<ApartmentOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Apartments.
+     */
+    cursor?: ApartmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Apartments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Apartments.
+     */
+    skip?: number
+    distinct?: Enumerable<ApartmentScalarFieldEnum>
+  }
+
+
+  /**
+   * Apartment create
+   */
+  export type ApartmentCreateArgs = {
+    /**
+     * Select specific fields to fetch from the Apartment
+     */
+    select?: ApartmentSelect | null
+    /**
+     * The data needed to create a Apartment.
+     */
+    data: XOR<ApartmentCreateInput, ApartmentUncheckedCreateInput>
+  }
+
+
+  /**
+   * Apartment createMany
+   */
+  export type ApartmentCreateManyArgs = {
+    /**
+     * The data used to create many Apartments.
+     */
+    data: Enumerable<ApartmentCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Apartment update
+   */
+  export type ApartmentUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the Apartment
+     */
+    select?: ApartmentSelect | null
+    /**
+     * The data needed to update a Apartment.
+     */
+    data: XOR<ApartmentUpdateInput, ApartmentUncheckedUpdateInput>
+    /**
+     * Choose, which Apartment to update.
+     */
+    where: ApartmentWhereUniqueInput
+  }
+
+
+  /**
+   * Apartment updateMany
+   */
+  export type ApartmentUpdateManyArgs = {
+    /**
+     * The data used to update Apartments.
+     */
+    data: XOR<ApartmentUpdateManyMutationInput, ApartmentUncheckedUpdateManyInput>
+    /**
+     * Filter which Apartments to update
+     */
+    where?: ApartmentWhereInput
+  }
+
+
+  /**
+   * Apartment upsert
+   */
+  export type ApartmentUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the Apartment
+     */
+    select?: ApartmentSelect | null
+    /**
+     * The filter to search for the Apartment to update in case it exists.
+     */
+    where: ApartmentWhereUniqueInput
+    /**
+     * In case the Apartment found by the `where` argument doesn't exist, create a new Apartment with this data.
+     */
+    create: XOR<ApartmentCreateInput, ApartmentUncheckedCreateInput>
+    /**
+     * In case the Apartment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ApartmentUpdateInput, ApartmentUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Apartment delete
+   */
+  export type ApartmentDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the Apartment
+     */
+    select?: ApartmentSelect | null
+    /**
+     * Filter which Apartment to delete.
+     */
+    where: ApartmentWhereUniqueInput
+  }
+
+
+  /**
+   * Apartment deleteMany
+   */
+  export type ApartmentDeleteManyArgs = {
+    /**
+     * Filter which Apartments to delete
+     */
+    where?: ApartmentWhereInput
+  }
+
+
+  /**
+   * Apartment without action
+   */
+  export type ApartmentArgs = {
+    /**
+     * Select specific fields to fetch from the Apartment
+     */
+    select?: ApartmentSelect | null
+  }
+
+
+
+  /**
    * Enums
    */
+
+  export const ApartmentScalarFieldEnum: {
+    id: 'id',
+    url: 'url',
+    title: 'title',
+    description: 'description'
+  };
+
+  export type ApartmentScalarFieldEnum = (typeof ApartmentScalarFieldEnum)[keyof typeof ApartmentScalarFieldEnum]
+
 
   export const MessageScalarFieldEnum: {
     id: 'id',
@@ -1753,6 +2693,49 @@ export namespace Prisma {
     content?: StringWithAggregatesFilter | string
   }
 
+  export type ApartmentWhereInput = {
+    AND?: Enumerable<ApartmentWhereInput>
+    OR?: Enumerable<ApartmentWhereInput>
+    NOT?: Enumerable<ApartmentWhereInput>
+    id?: IntFilter | number
+    url?: StringFilter | string
+    title?: StringFilter | string
+    description?: StringNullableFilter | string | null
+  }
+
+  export type ApartmentOrderByWithRelationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+  }
+
+  export type ApartmentWhereUniqueInput = {
+    id?: number
+  }
+
+  export type ApartmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    _count?: ApartmentCountOrderByAggregateInput
+    _avg?: ApartmentAvgOrderByAggregateInput
+    _max?: ApartmentMaxOrderByAggregateInput
+    _min?: ApartmentMinOrderByAggregateInput
+    _sum?: ApartmentSumOrderByAggregateInput
+  }
+
+  export type ApartmentScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<ApartmentScalarWhereWithAggregatesInput>
+    OR?: Enumerable<ApartmentScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<ApartmentScalarWhereWithAggregatesInput>
+    id?: IntWithAggregatesFilter | number
+    url?: StringWithAggregatesFilter | string
+    title?: StringWithAggregatesFilter | string
+    description?: StringNullableWithAggregatesFilter | string | null
+  }
+
   export type MessageCreateInput = {
     content: string
   }
@@ -1783,6 +2766,52 @@ export namespace Prisma {
   export type MessageUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ApartmentCreateInput = {
+    url: string
+    title: string
+    description?: string | null
+  }
+
+  export type ApartmentUncheckedCreateInput = {
+    id?: number
+    url: string
+    title: string
+    description?: string | null
+  }
+
+  export type ApartmentUpdateInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ApartmentUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ApartmentCreateManyInput = {
+    id?: number
+    url: string
+    title: string
+    description?: string | null
+  }
+
+  export type ApartmentUpdateManyMutationInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ApartmentUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type IntFilter = {
@@ -1868,6 +2897,68 @@ export namespace Prisma {
     _max?: NestedStringFilter
   }
 
+  export type StringNullableFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | string | null
+    notIn?: Enumerable<string> | string | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    mode?: QueryMode
+    not?: NestedStringNullableFilter | string | null
+  }
+
+  export type ApartmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+  }
+
+  export type ApartmentAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type ApartmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+  }
+
+  export type ApartmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+  }
+
+  export type ApartmentSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | string | null
+    notIn?: Enumerable<string> | string | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedStringNullableFilter
+    _max?: NestedStringNullableFilter
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -1878,6 +2969,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type NestedIntFilter = {
@@ -1947,6 +3042,48 @@ export namespace Prisma {
     _count?: NestedIntFilter
     _min?: NestedStringFilter
     _max?: NestedStringFilter
+  }
+
+  export type NestedStringNullableFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | string | null
+    notIn?: Enumerable<string> | string | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    not?: NestedStringNullableFilter | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | string | null
+    notIn?: Enumerable<string> | string | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    not?: NestedStringNullableWithAggregatesFilter | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedStringNullableFilter
+    _max?: NestedStringNullableFilter
+  }
+
+  export type NestedIntNullableFilter = {
+    equals?: number | null
+    in?: Enumerable<number> | number | null
+    notIn?: Enumerable<number> | number | null
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntNullableFilter | number | null
   }
 
 
