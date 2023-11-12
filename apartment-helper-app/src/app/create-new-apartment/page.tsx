@@ -2,7 +2,6 @@
 
 import React, { useState, ChangeEvent, FormEvent } from 'react'
 import { Apartment } from '@/generated/prisma-client'
-import { createApartment } from './_action'
 import { useSession } from 'next-auth/react'
 
 export type FormApartment = Omit<Apartment, 'id'> & { description: string }
