@@ -58,15 +58,13 @@ export default function HelloWorld() {
 
       const apartmentIsValid = newValidationErrors.length === 0
       if (apartmentIsValid) {
-        const response = await fetch('/api/apartment', {
-          method: 'POST',
-          body: JSON.stringify({
-            ...apartment,
-            description:
-              apartment.description.length === 0 ? '' : apartment.description,
-          }),
+        const createdApartment = await createApartment({
+          ...apartment,
+          description:
+            apartment.description.length === 0 ? '' : apartment.description,
         })
-        if (response.ok) {
+
+        if (createdApartment) {
           setSuccessMessage('Apartment created successfully')
         }
       }

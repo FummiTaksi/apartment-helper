@@ -1,6 +1,6 @@
 'use server'
 
-import { PrismaClient, Apartment } from '@/generated/prisma-client'
+import { PrismaClient, Apartment } from '../../generated/prisma-client'
 import { FormApartment } from './page'
 
 export const createApartment = async (

@@ -12,7 +12,8 @@
     "types:check": "tsc --noEmit",
     "test:e2e": "playwright test",
     "test:e2e-dev": "playwright test --ui",
-    "playwright:install": "playwright install"
+    "playwright:install": "playwright install",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "4.15.0",
