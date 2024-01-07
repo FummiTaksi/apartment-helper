@@ -4,6 +4,7 @@ import { Apartment } from '@/generated/prisma-client'
 
 import React, { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
+import Link from 'next/link'
 
 export default function Apartments() {
   const { data: session } = useSession()
@@ -16,7 +17,6 @@ export default function Apartments() {
         method: 'GET',
       })
       const apartments = (await response.json()) as unknown as Apartment[]
-      console.log('apartments', apartments)
       setApartments(apartments)
     }
     fetchApartments()
@@ -28,10 +28,20 @@ export default function Apartments() {
 
   return (
     <div>
+      <Link
+        data-testid="create-new-apartment-link"
+        href="/create-new-apartment"
+      >
+        Create new apartment
+      </Link>
       <h1>Apartments</h1>
       <ul>
         {apartments.map((apartment, index) => {
-          return <li key={index}>{apartment.title}</li>
+          return (
+            <li key={index} data-testid={`apartment-${index}`}>
+              {apartment.title}
+            </li>
+          )
         })}
       </ul>
     </div>

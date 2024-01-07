@@ -13,7 +13,7 @@ export default function LoginPage() {
       username,
       password,
       redirect: true,
-      callbackUrl: '/hello-world',
+      callbackUrl: '/apartments',
     })
   }
 
