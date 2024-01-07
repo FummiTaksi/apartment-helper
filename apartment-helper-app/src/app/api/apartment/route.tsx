@@ -1,10 +1,17 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@/generated/prisma-client'
+import { getToken } from 'next-auth/jwt'
 
-export async function POST(request: Request) {
+export async function POST(req: NextRequest) {
+  const token = await getToken({ req: req })
+
+  if (!token) {
+    return NextResponse.json({ error: 'unauthorized', status: 401 })
+  }
+
   const prisma = new PrismaClient()
 
-  const apartment = await request.json()
+  const apartment = await req.json()
 
   await prisma.apartment.create({
     data: apartment,
@@ -13,7 +20,12 @@ export async function POST(request: Request) {
   return NextResponse.json(apartment)
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const token = await getToken({ req: req })
+
+  if (!token) {
+    return NextResponse.json({ error: 'unauthorized', status: 401 })
+  }
   const prisma = new PrismaClient()
 
   const apartments = await prisma.apartment.findMany()
