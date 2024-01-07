@@ -12,3 +12,10 @@ export async function POST(request: Request) {
 
   return NextResponse.json(apartment)
 }
+
+export async function GET() {
+  const prisma = new PrismaClient()
+
+  const apartments = await prisma.apartment.findMany()
+  return NextResponse.json(apartments)
+}
