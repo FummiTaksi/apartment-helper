@@ -13,15 +13,6 @@ export type PrismaPromise<T> = runtime.Types.Public.PrismaPromise<T>
 
 
 /**
- * Model Message
- * 
- */
-export type Message = {
-  id: number
-  content: string
-}
-
-/**
  * Model Apartment
  * 
  */
@@ -40,8 +31,8 @@ export type Apartment = {
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Messages
- * const messages = await prisma.message.findMany()
+ * // Fetch zero or more Apartments
+ * const apartments = await prisma.apartment.findMany()
  * ```
  *
  * 
@@ -61,8 +52,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Messages
-   * const messages = await prisma.message.findMany()
+   * // Fetch zero or more Apartments
+   * const apartments = await prisma.apartment.findMany()
    * ```
    *
    * 
@@ -151,16 +142,6 @@ export class PrismaClient<
   $transaction<R>(fn: (prisma: Omit<this, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">) => Promise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): Promise<R>
 
       /**
-   * `prisma.message`: Exposes CRUD operations for the **Message** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Messages
-    * const messages = await prisma.message.findMany()
-    * ```
-    */
-  get message(): Prisma.MessageDelegate<GlobalReject>;
-
-  /**
    * `prisma.apartment`: Exposes CRUD operations for the **Apartment** model.
     * Example usage:
     * ```ts
@@ -638,7 +619,6 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    Message: 'Message',
     Apartment: 'Apartment'
   };
 
@@ -804,898 +784,6 @@ export namespace Prisma {
   /**
    * Models
    */
-
-  /**
-   * Model Message
-   */
-
-
-  export type AggregateMessage = {
-    _count: MessageCountAggregateOutputType | null
-    _avg: MessageAvgAggregateOutputType | null
-    _sum: MessageSumAggregateOutputType | null
-    _min: MessageMinAggregateOutputType | null
-    _max: MessageMaxAggregateOutputType | null
-  }
-
-  export type MessageAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type MessageSumAggregateOutputType = {
-    id: number | null
-  }
-
-  export type MessageMinAggregateOutputType = {
-    id: number | null
-    content: string | null
-  }
-
-  export type MessageMaxAggregateOutputType = {
-    id: number | null
-    content: string | null
-  }
-
-  export type MessageCountAggregateOutputType = {
-    id: number
-    content: number
-    _all: number
-  }
-
-
-  export type MessageAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type MessageSumAggregateInputType = {
-    id?: true
-  }
-
-  export type MessageMinAggregateInputType = {
-    id?: true
-    content?: true
-  }
-
-  export type MessageMaxAggregateInputType = {
-    id?: true
-    content?: true
-  }
-
-  export type MessageCountAggregateInputType = {
-    id?: true
-    content?: true
-    _all?: true
-  }
-
-  export type MessageAggregateArgs = {
-    /**
-     * Filter which Message to aggregate.
-     */
-    where?: MessageWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Messages to fetch.
-     */
-    orderBy?: Enumerable<MessageOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: MessageWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Messages from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Messages.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Messages
-    **/
-    _count?: true | MessageCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: MessageAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: MessageSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: MessageMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: MessageMaxAggregateInputType
-  }
-
-  export type GetMessageAggregateType<T extends MessageAggregateArgs> = {
-        [P in keyof T & keyof AggregateMessage]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateMessage[P]>
-      : GetScalarType<T[P], AggregateMessage[P]>
-  }
-
-
-
-
-  export type MessageGroupByArgs = {
-    where?: MessageWhereInput
-    orderBy?: Enumerable<MessageOrderByWithAggregationInput>
-    by: MessageScalarFieldEnum[]
-    having?: MessageScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: MessageCountAggregateInputType | true
-    _avg?: MessageAvgAggregateInputType
-    _sum?: MessageSumAggregateInputType
-    _min?: MessageMinAggregateInputType
-    _max?: MessageMaxAggregateInputType
-  }
-
-
-  export type MessageGroupByOutputType = {
-    id: number
-    content: string
-    _count: MessageCountAggregateOutputType | null
-    _avg: MessageAvgAggregateOutputType | null
-    _sum: MessageSumAggregateOutputType | null
-    _min: MessageMinAggregateOutputType | null
-    _max: MessageMaxAggregateOutputType | null
-  }
-
-  type GetMessageGroupByPayload<T extends MessageGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickArray<MessageGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof MessageGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], MessageGroupByOutputType[P]>
-            : GetScalarType<T[P], MessageGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type MessageSelect = {
-    id?: boolean
-    content?: boolean
-  }
-
-
-  export type MessageGetPayload<S extends boolean | null | undefined | MessageArgs> =
-    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
-    S extends true ? Message :
-    S extends undefined ? never :
-    S extends { include: any } & (MessageArgs | MessageFindManyArgs)
-    ? Message 
-    : S extends { select: any } & (MessageArgs | MessageFindManyArgs)
-      ? {
-    [P in TruthyKeys<S['select']>]:
-    P extends keyof Message ? Message[P] : never
-  } 
-      : Message
-
-
-  type MessageCountArgs = 
-    Omit<MessageFindManyArgs, 'select' | 'include'> & {
-      select?: MessageCountAggregateInputType | true
-    }
-
-  export interface MessageDelegate<GlobalRejectSettings extends Prisma.RejectOnNotFound | Prisma.RejectPerOperation | false | undefined> {
-
-    /**
-     * Find zero or one Message that matches the filter.
-     * @param {MessageFindUniqueArgs} args - Arguments to find a Message
-     * @example
-     * // Get one Message
-     * const message = await prisma.message.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUnique<T extends MessageFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, MessageFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Message'> extends True ? Prisma__MessageClient<MessageGetPayload<T>> : Prisma__MessageClient<MessageGetPayload<T> | null, null>
-
-    /**
-     * Find one Message that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {MessageFindUniqueOrThrowArgs} args - Arguments to find a Message
-     * @example
-     * // Get one Message
-     * const message = await prisma.message.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUniqueOrThrow<T extends MessageFindUniqueOrThrowArgs>(
-      args?: SelectSubset<T, MessageFindUniqueOrThrowArgs>
-    ): Prisma__MessageClient<MessageGetPayload<T>>
-
-    /**
-     * Find the first Message that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MessageFindFirstArgs} args - Arguments to find a Message
-     * @example
-     * // Get one Message
-     * const message = await prisma.message.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirst<T extends MessageFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, MessageFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Message'> extends True ? Prisma__MessageClient<MessageGetPayload<T>> : Prisma__MessageClient<MessageGetPayload<T> | null, null>
-
-    /**
-     * Find the first Message that matches the filter or
-     * throw `NotFoundError` if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MessageFindFirstOrThrowArgs} args - Arguments to find a Message
-     * @example
-     * // Get one Message
-     * const message = await prisma.message.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirstOrThrow<T extends MessageFindFirstOrThrowArgs>(
-      args?: SelectSubset<T, MessageFindFirstOrThrowArgs>
-    ): Prisma__MessageClient<MessageGetPayload<T>>
-
-    /**
-     * Find zero or more Messages that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MessageFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Messages
-     * const messages = await prisma.message.findMany()
-     * 
-     * // Get first 10 Messages
-     * const messages = await prisma.message.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const messageWithIdOnly = await prisma.message.findMany({ select: { id: true } })
-     * 
-    **/
-    findMany<T extends MessageFindManyArgs>(
-      args?: SelectSubset<T, MessageFindManyArgs>
-    ): Prisma.PrismaPromise<Array<MessageGetPayload<T>>>
-
-    /**
-     * Create a Message.
-     * @param {MessageCreateArgs} args - Arguments to create a Message.
-     * @example
-     * // Create one Message
-     * const Message = await prisma.message.create({
-     *   data: {
-     *     // ... data to create a Message
-     *   }
-     * })
-     * 
-    **/
-    create<T extends MessageCreateArgs>(
-      args: SelectSubset<T, MessageCreateArgs>
-    ): Prisma__MessageClient<MessageGetPayload<T>>
-
-    /**
-     * Create many Messages.
-     *     @param {MessageCreateManyArgs} args - Arguments to create many Messages.
-     *     @example
-     *     // Create many Messages
-     *     const message = await prisma.message.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
-     *     
-    **/
-    createMany<T extends MessageCreateManyArgs>(
-      args?: SelectSubset<T, MessageCreateManyArgs>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Message.
-     * @param {MessageDeleteArgs} args - Arguments to delete one Message.
-     * @example
-     * // Delete one Message
-     * const Message = await prisma.message.delete({
-     *   where: {
-     *     // ... filter to delete one Message
-     *   }
-     * })
-     * 
-    **/
-    delete<T extends MessageDeleteArgs>(
-      args: SelectSubset<T, MessageDeleteArgs>
-    ): Prisma__MessageClient<MessageGetPayload<T>>
-
-    /**
-     * Update one Message.
-     * @param {MessageUpdateArgs} args - Arguments to update one Message.
-     * @example
-     * // Update one Message
-     * const message = await prisma.message.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    update<T extends MessageUpdateArgs>(
-      args: SelectSubset<T, MessageUpdateArgs>
-    ): Prisma__MessageClient<MessageGetPayload<T>>
-
-    /**
-     * Delete zero or more Messages.
-     * @param {MessageDeleteManyArgs} args - Arguments to filter Messages to delete.
-     * @example
-     * // Delete a few Messages
-     * const { count } = await prisma.message.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
-    deleteMany<T extends MessageDeleteManyArgs>(
-      args?: SelectSubset<T, MessageDeleteManyArgs>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Messages.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MessageUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Messages
-     * const message = await prisma.message.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    updateMany<T extends MessageUpdateManyArgs>(
-      args: SelectSubset<T, MessageUpdateManyArgs>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Message.
-     * @param {MessageUpsertArgs} args - Arguments to update or create a Message.
-     * @example
-     * // Update or create a Message
-     * const message = await prisma.message.upsert({
-     *   create: {
-     *     // ... data to create a Message
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Message we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends MessageUpsertArgs>(
-      args: SelectSubset<T, MessageUpsertArgs>
-    ): Prisma__MessageClient<MessageGetPayload<T>>
-
-    /**
-     * Count the number of Messages.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MessageCountArgs} args - Arguments to filter Messages to count.
-     * @example
-     * // Count the number of Messages
-     * const count = await prisma.message.count({
-     *   where: {
-     *     // ... the filter for the Messages we want to count
-     *   }
-     * })
-    **/
-    count<T extends MessageCountArgs>(
-      args?: Subset<T, MessageCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends _Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], MessageCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Message.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MessageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends MessageAggregateArgs>(args: Subset<T, MessageAggregateArgs>): Prisma.PrismaPromise<GetMessageAggregateType<T>>
-
-    /**
-     * Group by Message.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MessageGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends MessageGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: MessageGroupByArgs['orderBy'] }
-        : { orderBy?: MessageGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, MessageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMessageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Message.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export class Prisma__MessageClient<T, Null = never> implements Prisma.PrismaPromise<T> {
-    private readonly _dmmf;
-    private readonly _queryType;
-    private readonly _rootField;
-    private readonly _clientMethod;
-    private readonly _args;
-    private readonly _dataPath;
-    private readonly _errorFormat;
-    private readonly _measurePerformance?;
-    private _isList;
-    private _callsite;
-    private _requestPromise?;
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-    constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
-
-
-    private get _document();
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
-  }
-
-
-
-  // Custom InputTypes
-
-  /**
-   * Message base type for findUnique actions
-   */
-  export type MessageFindUniqueArgsBase = {
-    /**
-     * Select specific fields to fetch from the Message
-     */
-    select?: MessageSelect | null
-    /**
-     * Filter, which Message to fetch.
-     */
-    where: MessageWhereUniqueInput
-  }
-
-  /**
-   * Message findUnique
-   */
-  export interface MessageFindUniqueArgs extends MessageFindUniqueArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findUniqueOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * Message findUniqueOrThrow
-   */
-  export type MessageFindUniqueOrThrowArgs = {
-    /**
-     * Select specific fields to fetch from the Message
-     */
-    select?: MessageSelect | null
-    /**
-     * Filter, which Message to fetch.
-     */
-    where: MessageWhereUniqueInput
-  }
-
-
-  /**
-   * Message base type for findFirst actions
-   */
-  export type MessageFindFirstArgsBase = {
-    /**
-     * Select specific fields to fetch from the Message
-     */
-    select?: MessageSelect | null
-    /**
-     * Filter, which Message to fetch.
-     */
-    where?: MessageWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Messages to fetch.
-     */
-    orderBy?: Enumerable<MessageOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Messages.
-     */
-    cursor?: MessageWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Messages from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Messages.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Messages.
-     */
-    distinct?: Enumerable<MessageScalarFieldEnum>
-  }
-
-  /**
-   * Message findFirst
-   */
-  export interface MessageFindFirstArgs extends MessageFindFirstArgsBase {
-   /**
-    * Throw an Error if query returns no results
-    * @deprecated since 4.0.0: use `findFirstOrThrow` method instead
-    */
-    rejectOnNotFound?: RejectOnNotFound
-  }
-      
-
-  /**
-   * Message findFirstOrThrow
-   */
-  export type MessageFindFirstOrThrowArgs = {
-    /**
-     * Select specific fields to fetch from the Message
-     */
-    select?: MessageSelect | null
-    /**
-     * Filter, which Message to fetch.
-     */
-    where?: MessageWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Messages to fetch.
-     */
-    orderBy?: Enumerable<MessageOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Messages.
-     */
-    cursor?: MessageWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Messages from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Messages.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Messages.
-     */
-    distinct?: Enumerable<MessageScalarFieldEnum>
-  }
-
-
-  /**
-   * Message findMany
-   */
-  export type MessageFindManyArgs = {
-    /**
-     * Select specific fields to fetch from the Message
-     */
-    select?: MessageSelect | null
-    /**
-     * Filter, which Messages to fetch.
-     */
-    where?: MessageWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Messages to fetch.
-     */
-    orderBy?: Enumerable<MessageOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Messages.
-     */
-    cursor?: MessageWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Messages from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Messages.
-     */
-    skip?: number
-    distinct?: Enumerable<MessageScalarFieldEnum>
-  }
-
-
-  /**
-   * Message create
-   */
-  export type MessageCreateArgs = {
-    /**
-     * Select specific fields to fetch from the Message
-     */
-    select?: MessageSelect | null
-    /**
-     * The data needed to create a Message.
-     */
-    data: XOR<MessageCreateInput, MessageUncheckedCreateInput>
-  }
-
-
-  /**
-   * Message createMany
-   */
-  export type MessageCreateManyArgs = {
-    /**
-     * The data used to create many Messages.
-     */
-    data: Enumerable<MessageCreateManyInput>
-    skipDuplicates?: boolean
-  }
-
-
-  /**
-   * Message update
-   */
-  export type MessageUpdateArgs = {
-    /**
-     * Select specific fields to fetch from the Message
-     */
-    select?: MessageSelect | null
-    /**
-     * The data needed to update a Message.
-     */
-    data: XOR<MessageUpdateInput, MessageUncheckedUpdateInput>
-    /**
-     * Choose, which Message to update.
-     */
-    where: MessageWhereUniqueInput
-  }
-
-
-  /**
-   * Message updateMany
-   */
-  export type MessageUpdateManyArgs = {
-    /**
-     * The data used to update Messages.
-     */
-    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyInput>
-    /**
-     * Filter which Messages to update
-     */
-    where?: MessageWhereInput
-  }
-
-
-  /**
-   * Message upsert
-   */
-  export type MessageUpsertArgs = {
-    /**
-     * Select specific fields to fetch from the Message
-     */
-    select?: MessageSelect | null
-    /**
-     * The filter to search for the Message to update in case it exists.
-     */
-    where: MessageWhereUniqueInput
-    /**
-     * In case the Message found by the `where` argument doesn't exist, create a new Message with this data.
-     */
-    create: XOR<MessageCreateInput, MessageUncheckedCreateInput>
-    /**
-     * In case the Message was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<MessageUpdateInput, MessageUncheckedUpdateInput>
-  }
-
-
-  /**
-   * Message delete
-   */
-  export type MessageDeleteArgs = {
-    /**
-     * Select specific fields to fetch from the Message
-     */
-    select?: MessageSelect | null
-    /**
-     * Filter which Message to delete.
-     */
-    where: MessageWhereUniqueInput
-  }
-
-
-  /**
-   * Message deleteMany
-   */
-  export type MessageDeleteManyArgs = {
-    /**
-     * Filter which Messages to delete
-     */
-    where?: MessageWhereInput
-  }
-
-
-  /**
-   * Message without action
-   */
-  export type MessageArgs = {
-    /**
-     * Select specific fields to fetch from the Message
-     */
-    select?: MessageSelect | null
-  }
-
-
 
   /**
    * Model Apartment
@@ -2619,14 +1707,6 @@ export namespace Prisma {
   export type ApartmentScalarFieldEnum = (typeof ApartmentScalarFieldEnum)[keyof typeof ApartmentScalarFieldEnum]
 
 
-  export const MessageScalarFieldEnum: {
-    id: 'id',
-    content: 'content'
-  };
-
-  export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
-
-
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
@@ -2657,41 +1737,6 @@ export namespace Prisma {
    * Deep Input Types
    */
 
-
-  export type MessageWhereInput = {
-    AND?: Enumerable<MessageWhereInput>
-    OR?: Enumerable<MessageWhereInput>
-    NOT?: Enumerable<MessageWhereInput>
-    id?: IntFilter | number
-    content?: StringFilter | string
-  }
-
-  export type MessageOrderByWithRelationInput = {
-    id?: SortOrder
-    content?: SortOrder
-  }
-
-  export type MessageWhereUniqueInput = {
-    id?: number
-  }
-
-  export type MessageOrderByWithAggregationInput = {
-    id?: SortOrder
-    content?: SortOrder
-    _count?: MessageCountOrderByAggregateInput
-    _avg?: MessageAvgOrderByAggregateInput
-    _max?: MessageMaxOrderByAggregateInput
-    _min?: MessageMinOrderByAggregateInput
-    _sum?: MessageSumOrderByAggregateInput
-  }
-
-  export type MessageScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<MessageScalarWhereWithAggregatesInput>
-    OR?: Enumerable<MessageScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<MessageScalarWhereWithAggregatesInput>
-    id?: IntWithAggregatesFilter | number
-    content?: StringWithAggregatesFilter | string
-  }
 
   export type ApartmentWhereInput = {
     AND?: Enumerable<ApartmentWhereInput>
@@ -2734,38 +1779,6 @@ export namespace Prisma {
     url?: StringWithAggregatesFilter | string
     title?: StringWithAggregatesFilter | string
     description?: StringNullableWithAggregatesFilter | string | null
-  }
-
-  export type MessageCreateInput = {
-    content: string
-  }
-
-  export type MessageUncheckedCreateInput = {
-    id?: number
-    content: string
-  }
-
-  export type MessageUpdateInput = {
-    content?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type MessageUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    content?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type MessageCreateManyInput = {
-    id?: number
-    content: string
-  }
-
-  export type MessageUpdateManyMutationInput = {
-    content?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type MessageUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    content?: StringFieldUpdateOperationsInput | string
   }
 
   export type ApartmentCreateInput = {
@@ -2840,63 +1853,6 @@ export namespace Prisma {
     not?: NestedStringFilter | string
   }
 
-  export type MessageCountOrderByAggregateInput = {
-    id?: SortOrder
-    content?: SortOrder
-  }
-
-  export type MessageAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type MessageMaxOrderByAggregateInput = {
-    id?: SortOrder
-    content?: SortOrder
-  }
-
-  export type MessageMinOrderByAggregateInput = {
-    id?: SortOrder
-    content?: SortOrder
-  }
-
-  export type MessageSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter = {
-    equals?: number
-    in?: Enumerable<number> | number
-    notIn?: Enumerable<number> | number
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedIntWithAggregatesFilter | number
-    _count?: NestedIntFilter
-    _avg?: NestedFloatFilter
-    _sum?: NestedIntFilter
-    _min?: NestedIntFilter
-    _max?: NestedIntFilter
-  }
-
-  export type StringWithAggregatesFilter = {
-    equals?: string
-    in?: Enumerable<string> | string
-    notIn?: Enumerable<string> | string
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter | string
-    _count?: NestedIntFilter
-    _min?: NestedStringFilter
-    _max?: NestedStringFilter
-  }
-
   export type StringNullableFilter = {
     equals?: string | null
     in?: Enumerable<string> | string | null
@@ -2941,6 +1897,40 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type IntWithAggregatesFilter = {
+    equals?: number
+    in?: Enumerable<number> | number
+    notIn?: Enumerable<number> | number
+    lt?: number
+    lte?: number
+    gt?: number
+    gte?: number
+    not?: NestedIntWithAggregatesFilter | number
+    _count?: NestedIntFilter
+    _avg?: NestedFloatFilter
+    _sum?: NestedIntFilter
+    _min?: NestedIntFilter
+    _max?: NestedIntFilter
+  }
+
+  export type StringWithAggregatesFilter = {
+    equals?: string
+    in?: Enumerable<string> | string
+    notIn?: Enumerable<string> | string
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter | string
+    _count?: NestedIntFilter
+    _min?: NestedStringFilter
+    _max?: NestedStringFilter
+  }
+
   export type StringNullableWithAggregatesFilter = {
     equals?: string | null
     in?: Enumerable<string> | string | null
@@ -2963,16 +1953,16 @@ export namespace Prisma {
     set?: string
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type NestedIntFilter = {
@@ -2998,6 +1988,20 @@ export namespace Prisma {
     startsWith?: string
     endsWith?: string
     not?: NestedStringFilter | string
+  }
+
+  export type NestedStringNullableFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | string | null
+    notIn?: Enumerable<string> | string | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    not?: NestedStringNullableFilter | string | null
   }
 
   export type NestedIntWithAggregatesFilter = {
@@ -3042,20 +2046,6 @@ export namespace Prisma {
     _count?: NestedIntFilter
     _min?: NestedStringFilter
     _max?: NestedStringFilter
-  }
-
-  export type NestedStringNullableFilter = {
-    equals?: string | null
-    in?: Enumerable<string> | string | null
-    notIn?: Enumerable<string> | string | null
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
-    not?: NestedStringNullableFilter | string | null
   }
 
   export type NestedStringNullableWithAggregatesFilter = {

@@ -93,11 +93,6 @@ exports.Prisma.ApartmentScalarFieldEnum = {
   description: 'description'
 };
 
-exports.Prisma.MessageScalarFieldEnum = {
-  id: 'id',
-  content: 'content'
-};
-
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -117,7 +112,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 
 exports.Prisma.ModelName = {
-  Message: 'Message',
   Apartment: 'Apartment'
 };
 
