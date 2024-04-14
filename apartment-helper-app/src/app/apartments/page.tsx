@@ -13,17 +13,21 @@ export default function Apartments() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   useEffect(() => {
-    try {
-      const fetchApartments = async (): Promise<void> => {
-        const response = await fetch('/api/apartment', {
-          method: 'GET',
-        })
-        if (response.status === 200) {
-          const apartments = (await response.json()) as unknown as Apartment[]
-          setApartments(apartments)
-          setErrorMessage(null)
-        }
+    const fetchApartments = async (): Promise<void> => {
+      const response = await fetch('/api/apartment', {
+        method: 'GET',
+      })
+      if (response.status !== 200) {
+        setErrorMessage(
+          `Something went wrong when fetching apartments, status code ${response.status}`,
+        )
+      } else {
+        const apartments = (await response.json()) as unknown as Apartment[]
+        setApartments(apartments)
+        setErrorMessage(null)
       }
+    }
+    try {
       fetchApartments()
     } catch (e) {
       setErrorMessage(`Something went wrong when fetching apartments, ${e}`)
