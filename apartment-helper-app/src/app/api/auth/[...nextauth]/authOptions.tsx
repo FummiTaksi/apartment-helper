@@ -1,4 +1,4 @@
-import { User } from 'next-auth'
+import { AuthOptions, User } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 
 type Credentials = {
@@ -13,7 +13,7 @@ const isCorrectCredentials = (credentials: Credentials): boolean => {
   )
 }
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
   secret: process.env.SECRET,
   providers: [
     Credentials({
