@@ -4,9 +4,16 @@ import { decode } from 'next-auth/jwt'
 import { cookies } from 'next/headers'
 
 export async function POST(req: NextRequest) {
+  if (process.env.SECRET === undefined) {
+    throw new Error('SECRET env not set')
+  }
   const sessionToken = cookies().get('next-auth.session-token')
+  const decoded = await decode({
+    token: sessionToken?.value,
+    secret: process.env.SECRET,
+  })
 
-  if (sessionToken === undefined) {
+  if (decoded === null) {
     return NextResponse.json({ status: 401, message: 'Unauthorized' })
   }
 
@@ -22,8 +29,16 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
+  if (process.env.SECRET === undefined) {
+    throw new Error('SECRET env not set')
+  }
   const sessionToken = cookies().get('next-auth.session-token')
-  if (sessionToken === undefined) {
+  const decoded = await decode({
+    token: sessionToken?.value,
+    secret: process.env.SECRET,
+  })
+
+  if (decoded === null) {
     return NextResponse.json({ status: 401, message: 'Unauthorized' })
   }
 
