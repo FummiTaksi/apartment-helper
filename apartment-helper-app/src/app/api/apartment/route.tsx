@@ -22,11 +22,6 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  const sessionToken = cookies().get('next-auth.session-token')
-  if (sessionToken === undefined) {
-    return NextResponse.json({ status: 401, message: 'Unauthorized' })
-  }
-
   const prisma = new PrismaClient()
 
   const apartments = await prisma.apartment.findMany()
